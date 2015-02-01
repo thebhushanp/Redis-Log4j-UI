@@ -1,0 +1,45 @@
+<project name="ant" basedir=".">
+	<property name="src.dir" value="src" />
+	<path id="master-classpath">
+		<fileset dir="lib">
+			<include name="*.jar" />
+		</fileset>
+		<pathelement path="${build.dir}" />
+	</path>
+	<property name="build.dir" value="build/" />
+	<property name="target.dir" value="target/" />
+	
+	<target name="clean.all" description="Clean All">
+		<delete includeemptydirs="true" dir="${build.dir}" />
+	</target>
+
+	<target name="build" description="Compile source tree java files">
+		<mkdir dir="${build.dir}" />
+		<javac destdir="${build.dir}" source="1.7" target="1.7" srcdir="${src.dir}" includeantruntime="false">
+			<classpath refid="master-classpath">
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="clear_and_build" depends="clean.all">
+		<antcall target="build" />
+	</target>
+
+	<target name="java_docs">
+		<javadoc packagenames="the.bhushan.*" sourcepath="${src.dir}" destdir="doc" windowtitle="PACE" author="true">
+			<doctitle>
+				<![CDATA[= PACE 1.2 =]]>
+			</doctitle>
+			<bottom>
+				<![CDATA[Copyright © 2011. All Rights Reserved.]]>
+			</bottom>
+			<group title="util packages" packages="the.bhushan.*" />
+		</javadoc>
+	</target>
+
+	<target name="build_jar">
+		<mkdir dir="${target.dir}"/>
+		<jar destfile="${target.dir}/jar/log4j2Redis.jar" basedir="${build.dir}">
+		</jar>
+	</target>
+</project>
