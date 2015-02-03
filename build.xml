@@ -26,9 +26,9 @@
 	</target>
 
 	<target name="java_docs">
-		<javadoc packagenames="the.bhushan.*" sourcepath="${src.dir}" destdir="doc" windowtitle="PACE" author="true">
+		<javadoc packagenames="the.bhushan.*" sourcepath="${src.dir}" destdir="doc" windowtitle="RedisAppender" author="true">
 			<doctitle>
-				<![CDATA[= PACE 1.2 =]]>
+				<![CDATA[= RedisAppender 1.0 =]]>
 			</doctitle>
 			<bottom>
 				<![CDATA[Copyright © 2011. All Rights Reserved.]]>
