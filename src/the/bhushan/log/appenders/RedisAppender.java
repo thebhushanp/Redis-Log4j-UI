@@ -1,6 +1,7 @@
 package the.bhushan.log.appenders;
 
 import org.apache.log4j.AppenderSkeleton;
+import org.apache.log4j.Layout;
 import org.apache.log4j.spi.LoggingEvent;
 
 import the.bhushan.redis.RedisClient;
@@ -11,6 +12,19 @@ public class RedisAppender extends AppenderSkeleton {
 	private String redisHost;
 	private String redisPassword;
 
+	public RedisAppender(String host, String port, Layout layout) {
+		this.redisHost = host;
+		this.redisPort = port;
+		this.layout = layout;
+	}
+	
+	public RedisAppender(String host, String port, String password, Layout layout) {
+		this.redisHost = host;
+		this.redisPort = port;
+		this.redisPassword = password;
+		this.layout = layout;
+	}
+	
 	@Override
 	public void activateOptions() {
 		super.activateOptions();
