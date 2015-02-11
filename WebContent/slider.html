@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Slider Demo</title>
+<!-- <script src="static/slider/jquery.js"></script> -->
+ <script src="https://code.jquery.com/jquery-2.1.1.js"></script>
+<script src="static/slider/jquery-ui.min.js"></script>
+<script src="static/slider/jquery-ui.css"></script><!-- 
+<script src="static/slider/jquery-ui-slider-pips.js"></script>
+<script src="static/slider/jquery-ui-slider-pips.css"></script> -->
+<!-- include the jQuery and jQuery UI scripts -->
+<!--
+<script src="https://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+ -->                
+<!-- plus a jQuery UI theme, here I use "flick" -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/flick/jquery-ui.css">
+</head>
+<body>
+	<div id="slider"></div>
+	<script type="text/javascript">
+		window.onload = function() {
+			$("#slider").slider({ max: 100, step: 20 });
+			$("#slider").slider("pips" , {
+			    rest: "label"
+			});
+		}
+	</script>
+</body>
+</html>

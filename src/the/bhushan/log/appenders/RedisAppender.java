@@ -11,11 +11,16 @@ public class RedisAppender extends AppenderSkeleton {
 	private String redisPort;
 	private String redisHost;
 	private String redisPassword;
+	private String key;
+	public RedisAppender() {
+		
+	}
 
 	public RedisAppender(String host, String port, Layout layout) {
 		this.redisHost = host;
 		this.redisPort = port;
 		this.layout = layout;
+		initRedisClient();
 	}
 	
 	public RedisAppender(String host, String port, String password, Layout layout) {
@@ -23,17 +28,22 @@ public class RedisAppender extends AppenderSkeleton {
 		this.redisPort = port;
 		this.redisPassword = password;
 		this.layout = layout;
+		initRedisClient();
 	}
 	
-	@Override
-	public void activateOptions() {
-		super.activateOptions();
+	private void initRedisClient() {
 		if(redisHost != null && redisPort != null)
 			redisClient = new RedisClient(redisHost, Integer.valueOf(redisPort));
 		else
 			redisClient = new RedisClient();
 		if(redisPassword != null)
 			redisClient.setPassword(redisPassword);
+	}
+
+	@Override
+	public void activateOptions() {
+		initRedisClient();
+		super.activateOptions();
 	}
 
 	@Override
@@ -48,15 +58,7 @@ public class RedisAppender extends AppenderSkeleton {
 
 	@Override
 	protected void append(LoggingEvent event) {
-		if (event.getThrowableStrRep() != null) {
-			StringBuffer strBuffer = new StringBuffer(layout.format(event));
-			for (String logStep : event.getThrowableStrRep()) {
-				strBuffer.append(logStep);
-			}
-			redisClient.appendToList(event.getLoggerName(),
-					strBuffer.toString());
-		} else
-			redisClient.appendToList(event.getLoggerName(),
+		redisClient.appendToList(key,
 					this.layout.format(event));
 	}
 
@@ -82,6 +84,14 @@ public class RedisAppender extends AppenderSkeleton {
 
 	public void setRedisPassword(String redisPassword) {
 		this.redisPassword = redisPassword;
+	}
+
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
 	}
 
 }

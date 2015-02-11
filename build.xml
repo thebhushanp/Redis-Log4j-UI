@@ -37,7 +37,7 @@
 		</javadoc>
 	</target>
 
-	<target name="build_jar">
+	<target name="build_jar" depends="build">
 		<mkdir dir="${target.dir}"/>
 		<jar destfile="${target.dir}/jar/log4j2Redis.jar" basedir="${build.dir}">
 		</jar>
