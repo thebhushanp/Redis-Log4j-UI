@@ -16,7 +16,20 @@ Write logs directly to Redis NOSQL database
   <url-pattern>/LogPuller</url-pattern>
 </servlet-mapping>
 ```
-  - Now run your applicaton, visit **logViewer.html**
+**log4j.properties configuration**
+  - log4j.appender.redisAppender=the.bhushan.log.appenders.RedisAppender
+  - log4j.appender.redisAppender.layout=net.logstash.log4j.JSONEventLayoutV1
+  - log4j.appender.redisAppender.redisPort=6379
+  - log4j.appender.redisAppender.redisHost=localhost
+  - log4j.appender.redisAppender.key=bhushan
 
+**Dependency required for Redis-Log4j-UI**
+  - commons-lang-2.6.jar
+  - gson-2.2.4.jar
+  - jedis-2.4.2.jar
+  - json-smart-1.1.1.jar
+  - log4j-1.2.17.jar
+
+- Now run your applicaton, visit **logViewer.html**
 
 Thats it. Have a happy logging. :)
