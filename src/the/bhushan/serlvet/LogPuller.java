@@ -35,10 +35,9 @@ public class LogPuller extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Map<String, String> params = splitQueryString(request.getQueryString());
-		List<String> logs = redisClient.getLogs(params.get("key"), Integer.valueOf(params.get("to")), Integer.valueOf(params.get("from")));
+		List<String> logs = redisClient.getLogs(params.get("key"), Integer.valueOf(params.get("startIndex")), Integer.valueOf(params.get("endIndex")));
 		PrintWriter out = response.getWriter();
 		String json = new Gson().toJson(logs);
-		//System.out.println(json);
 		out.println(json);
 		response.setContentType("application/json;charset=UTF-8");
 	}
