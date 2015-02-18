@@ -36,7 +36,7 @@ public class RedisClient {
 	 * @param msg
 	 */
 	public void appendToList(String bucket, String msg) {
-		jedis.lpush(bucket, msg);
+		jedis.rpush(bucket, msg);
 	}
 	
 	/**
