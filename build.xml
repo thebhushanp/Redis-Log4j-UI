@@ -1,7 +1,7 @@
 <project name="ant" basedir=".">
 	<property name="src.dir" value="src" />
 	<path id="master-classpath">
-		<fileset dir="lib">
+		<fileset dir="WebContent/WEB-INF/lib">
 			<include name="*.jar" />
 		</fileset>
 		<pathelement path="${build.dir}" />
