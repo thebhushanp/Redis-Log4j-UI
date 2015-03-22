@@ -4,6 +4,10 @@ import java.util.List;
 
 import redis.clients.jedis.Jedis;
 
+/**
+ * @author bhushan
+ *
+ */
 public class RedisClient {
 	private String host = "localhost";
 	private int port = 6379;
