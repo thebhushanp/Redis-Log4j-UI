@@ -1,28 +1,17 @@
 package the.bhushan.log.test;
 
 import static org.junit.Assert.assertEquals;
-
-import java.util.List;
-
-import org.junit.Before;
-
-import the.bhushan.redis.RedisClient;
+import redis.clients.jedis.Jedis;
 
 public class TestRedisConnection {
 
-	static RedisClient client;
-
-	@Before
-	public void setup() {
-		client = new RedisClient();
-	}
-
-	String message = "Robert";
-
 	@org.junit.Test
 	public void testPrintMessage() {
-		client.appendToList("test", message);
-		List<String> strlist = client.getLogs("test", 0, -1);
-		assertEquals(message, strlist.get(0));
+		// Connecting to Redis server on localhost
+		Jedis jedis = new Jedis("localhost");
+		// set the data in redis string
+		jedis.set("James", "Bond");
+		assertEquals("Bond", jedis.get("James"));
+		jedis.close();
 	}
 }

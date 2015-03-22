@@ -21,7 +21,7 @@ public class RedisClient {
 
 	/**
 	 * This method returns list of logs.
-	 * 
+	 *
 	 * @param bucket
 	 * @param indexFrom
 	 * @param indexTo
@@ -33,7 +33,7 @@ public class RedisClient {
 
 	/**
 	 * This method writes logs to Redis server.
-	 * 
+	 *
 	 * @param bucket
 	 * @param msg
 	 */
@@ -52,5 +52,9 @@ public class RedisClient {
 	public void setPassword(String redisPassword) {
 		if (jedis != null)
 			jedis.auth(redisPassword);
+	}
+
+	public void close() {
+		jedis.close();
 	}
 }
