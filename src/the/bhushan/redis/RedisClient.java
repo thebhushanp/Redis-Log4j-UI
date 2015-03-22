@@ -20,7 +20,7 @@ public class RedisClient {
 	}
 
 	/**
-	 * This method returns list of logs.
+	 * This method returns list of logs by their index number.
 	 *
 	 * @param bucket
 	 * @param indexFrom
@@ -32,7 +32,7 @@ public class RedisClient {
 	}
 
 	/**
-	 * This method writes logs to Redis server.
+	 * This method appends log msg to list data structure in Redis server .
 	 *
 	 * @param bucket
 	 * @param msg
