@@ -8,6 +8,9 @@
 		<fileset dir="WebContent/WEB-INF/lib">
 			<include name="*.jar" />
 		</fileset>
+		<fileset dir="/usr/share/tomcat7/.jenkins/plugins/pmd/WEB-INF/lib">
+			<include name="*.jar" />
+		</fileset>
 		<pathelement path="${build.dir}" />
 	</path>
 	<path id="servlet-classpath">
@@ -15,7 +18,11 @@
 			<include name="*.jar" />
 		</fileset>
 	</path>
-
+	<path id="pmd-classpath">
+		<fileset dir="/usr/share/tomcat7/.jenkins/plugins/pmd/WEB-INF/lib">
+			<include name="*.jar" />
+		</fileset>
+	</path>
 	<target name="clean.all" description="Clean All">
 		<delete includeemptydirs="true" dir="${build.dir}" />
 	</target>
@@ -59,13 +66,18 @@
 				<pathelement location="${build.dir}" />
 				<path refid="master-classpath">
 				</path>
-
-				<!--
-<pathelement location="/home/bhushan/workspace/learn_ant/ant/lib/junit-4.10.jar" />
--->
 			</classpath>
 			<formatter type="xml" />
 		</junit>
 	</target>
-
+	<target name="pmd">
+		<taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="master-classpath" />
+		<pmd>
+			<ruleset>rulesets/java/basic.xml</ruleset>
+			<formatter type="xml" toFile="pmd_report.xml" />
+			<fileset dir="${src.dir}">
+				<include name="**/*.java" />
+			</fileset>
+		</pmd>
+	</target>
 </project>
