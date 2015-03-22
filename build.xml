@@ -1,14 +1,21 @@
 <project name="ant" basedir=".">
 	<property name="src.dir" value="src" />
+	<property name="build.dir" value="build/" />
+	<property name="target.dir" value="target/" />
+	<property name="tomcat.dir" value="/usr/share/tomcat7/" />
+
 	<path id="master-classpath">
 		<fileset dir="WebContent/WEB-INF/lib">
 			<include name="*.jar" />
 		</fileset>
 		<pathelement path="${build.dir}" />
 	</path>
-	<property name="build.dir" value="build/" />
-	<property name="target.dir" value="target/" />
-	
+	<path id="servlet-classpath">
+		<fileset dir="${tomcat.dir}/lib/">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
 	<target name="clean.all" description="Clean All">
 		<delete includeemptydirs="true" dir="${build.dir}" />
 	</target>
@@ -17,6 +24,8 @@
 		<mkdir dir="${build.dir}" />
 		<javac destdir="${build.dir}" source="1.7" target="1.7" srcdir="${src.dir}" includeantruntime="false">
 			<classpath refid="master-classpath">
+			</classpath>
+			<classpath refid="servlet-classpath">
 			</classpath>
 		</javac>
 	</target>
@@ -38,8 +47,25 @@
 	</target>
 
 	<target name="build_jar" depends="build">
-		<mkdir dir="${target.dir}"/>
+		<mkdir dir="${target.dir}" />
 		<jar destfile="${target.dir}/jar/log4j2Redis.jar" basedir="${build.dir}">
 		</jar>
 	</target>
+
+	<target name="run_tests" depends="build">
+		<junit haltonfailure="true" printsummary="true" fork="yes">
+			<test name="the.bhushan.log.test.RunAllTest" />
+			<classpath>
+				<pathelement location="${build.dir}" />
+				<path refid="master-classpath">
+				</path>
+
+				<!--
+<pathelement location="/home/bhushan/workspace/learn_ant/ant/lib/junit-4.10.jar" />
+-->
+			</classpath>
+			<formatter type="xml" />
+		</junit>
+	</target>
+
 </project>
