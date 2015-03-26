@@ -1,4 +1,24 @@
 #slider {
     margin: 30px;
 } 
+#divLogListView{
+	width:70%;
+	margin-left:27%;
+}
 
+#left-nav{
+	position: fixed;
+	line-height: 30px; 
+	background-color: #eeeeee; 
+	height: 100%; 
+	width: 25%; 
+	float: left; 
+	padding: 5px;
+}
+
+.nav-btn{
+	width:200px;
+	height:30px;
+	margin-left:50px;
+	margin-top:10px;
+}

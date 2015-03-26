@@ -12,7 +12,6 @@ var autoUpdateInterval = 4000;
 var timeoutId;
 var isInTailMode = false;
 
-
 $(window).load(function() {
 	autoUpdateUI();
 });
@@ -20,11 +19,11 @@ $(window).load(function() {
 function autoUpdateUI() {
 	$.ajax(
 			{
+				dataType : "json",
 				url : "LogPuller?key=" + key + "&startIndex=" + startIndex
 						+ "&endIndex=" + endIndex,
 			}).done(function(data) {
 		startIndex = startIndex + data.length;
-		// renderLogs(JSON.parse(data));
 		renderLogs(data);
 	}).error(function(jqXHR, textStatus, errorThrown) {
 		alert('err' + textStatus + errorThrown);
@@ -41,8 +40,9 @@ function renderLogs(data) {
 				"<div class='" + logLevelEnum[log.level] + "' role='alert'>"
 						+ formatLogMessage(log) + "</div>");
 	});
-	if(isInTailMode)
-		$("html, body").animate({ scrollTop: $("#divLogListView").height() }, 1000);
+	if (isInTailMode)
+		 $("html, body").animate({scrollTop : $("#divLogListView").height()},
+		 1000);
 }
 
 function formatLogMessage(log) {
@@ -64,4 +64,16 @@ function onClickTailMode() {
 	clearTimeout(timeoutId);
 	autoUpdateInterval = 1000;
 	autoUpdateUI();
+}
+
+function onClickPause() {
+	var w_height = $(window).height();
+	var d_height = $(document).height();
+	isInTailMode = false;
+	if (!isInTailMode) {
+		$("html, body").animate({
+			scrollBottom : w_height + d_height
+		}, 'slow', function() {
+		});
+	}
 }
